@@ -1,0 +1,72 @@
+.main_container{
+    font-family:sans-serif;
+    background-color: lightgray;
+    
+    border: 3px solid black;
+    border-radius: 10px;
+    
+    margin: auto;
+    width: fit-content;
+    padding:15px;
+    
+    display: grid;
+grid-template-areas: 
+"screen screen screen screen"
+"clear clear delete delete"
+"n7 n8 n9 divide"
+"n4 n5 n6 times"
+"n1 n2 n3 minus"
+"dot n0 equal plus";
+column-gap: 10px;
+row-gap: 10px;
+
+
+}
+
+
+
+/* ============================= */
+/*             SCREEN            */
+/* ============================= */
+
+.screen{
+    /* background-color: darksalmon; */
+    background-color: white;
+    border: 2px solid darkblue;
+    border-radius: 5px;
+    padding: 0.3em 1em;
+}
+.disp{
+    /* font-size: 18px; */
+}
+#operation
+{
+    /* background-color: darkgoldenrod; */
+    text-align: right;
+    margin: 5px auto;
+    
+}
+#result{
+    /* background-color: darkcyan; */
+    text-align: right;
+    margin: 5px auto;
+    
+}
+
+
+
+
+/* ============================= */
+/*             BUTTONS           */
+/* ============================= */
+.btn{
+    font-size: 18px;
+    text-align: center;
+    background-color:cornflowerblue;
+    border: 2px solid darkblue;
+    border-radius: 5px;
+padding: 1em;
+font-weight: bold;
+}
+#clear{background-color: tomato;}
+#delete{background-color:palevioletred;}
