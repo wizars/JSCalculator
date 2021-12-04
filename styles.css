@@ -38,11 +38,14 @@ row-gap: 10px;
 }
 .disp{
     /* font-size: 18px; */
+    min-width: 100px;
+    min-height: 28px;
+    background-color: steelblue;
+    text-align: right;
 }
-#operation
+#new_value
 {
     /* background-color: darkgoldenrod; */
-    text-align: right;
     margin: 5px auto;
     
 }
@@ -67,6 +70,11 @@ row-gap: 10px;
     border-radius: 5px;
 padding: 1em;
 font-weight: bold;
+cursor: pointer;
 }
+.btn:active{
+    background-color: rebeccapurple;
+}
+
 #clear{background-color: tomato;}
 #delete{background-color:palevioletred;}
