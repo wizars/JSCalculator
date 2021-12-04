@@ -58,10 +58,52 @@ btn9.addEventListener("click", number);
 btn0.addEventListener("click", number);
 btn_dot.addEventListener("click", number);
 
+// Add eventlistener for keyboard
+window.addEventListener("keydown", captureKey);
+
+
+// Executed when a key is press to capture the value and pass it as if the corresponding button was press
+function captureKey(evento) {
+    
+    let tecla = evento.key;
+    let code = evento.keyCode;
+
+    console.log("Tecla " + tecla + " pulsada, con codigo "+code)
+    
+
+    if (tecla in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."]) {
+        console.log("\tTecla numero " +tecla)
+        
+        number(evento);
+        // return;
+    }
+
+     if (code ===109) {
+        console.log("\tTecla operacion " +code)
+        operate(evento)
+        // tecla === "+" ? PLUS : tecla === "-" ? MINUS : tecla === "*" ? TIMES : tecla === "/" ? DIVIDE : EQUAL
+    }
+
+}
+
 // Executed when the user clicks a operation button
-function operate() {
-    console.log(this.value)
-    // operator = this.value;
+function operate(event) {
+    
+    console.log("\t\tTecla OPERACION " + event.key)
+  // Check if it comes from a key
+  if (event.key != undefined) {
+    this.value =  
+         event.key === "+" ? PLUS : event.key === "-" ? MINUS : event.key === "*" ? TIMES : event.key === "/" ? DIVIDE : EQUAL
+
+} 
+
+
+    // Will contain the result
+    let resultado;
+
+    // Compute the new variable
+    var_new = Number(disp_newValue.innerHTML)
+
     switch (this.value) {
 
         case CLEAR:
@@ -95,119 +137,255 @@ function operate() {
             break
 
         case PLUS:
-            // console.log(">> ADDING")
-
-            /*  
-            Si current esta vacia
-                    
-            disp result ="" (new) "+"""       muestra arriba la operacion
-            disp new = 0
-            
-            current= new
-                    new =0
-                    
-                    Si current ya tiene valor
-                    disp resul = "(new+current) + ""    Como ya teniamos un curent val lo sumamos con el nuevo new y mostramos su suma seguida de un "+"
-                    disp new = "(new+current)"          mostramos la suma
-                    
-                    current = new+current           Toma el valor del resultado
-                    new = current                   Toman las dos variables el valor del resultado
-                    */
 
             // Set the current operator, needed for the "=" button to know what to do
             operator = PLUS;
-            if (var_new != "") {
+            // If var_current is empty...
+            if (var_current === "") {
 
-                // If var_current is empty...
-                if (var_current === "") {
-                    // Clear disp new_value
-                    disp_newValue.innerHTML = "0";
+                // Clear disp new_value
+                disp_newValue.innerHTML = "0";
 
-                    // Update disp_result
-                    disp_result.innerHTML = var_new + " + "
+                // Update disp_result
+                disp_result.innerHTML = var_new + " + "
 
-                    // Pass the value of var_new to var_current and clear var_new
-                    var_current = var_new;
-                    var_new = "";
+                // Pass the value of var_new to var_current and clear var_new
+                var_current = var_new;
+                var_new = "";
 
-                }
-                // If there's already a value var_current
-                else {
-
-                    console.log("aqui")
-                    // Compute the operation
-                    let resultado = Number(var_new) + Number(var_current);
-
-                    // Update the result disp
-                    disp_result.innerHTML = resultado + " + ";
-
-                    // Update the new value disp
-                    disp_newValue.innerHTML = resultado
-
-                    // Compute the sum and assing to both variable
-                    var_current = resultado
-                    var_new = "";
-
-                    // Reset the operator
-                    operator = EQUAL;
-                }
             }
+            // If there's already a value var_current
+            else {
+
+                // Compute the operation
+                resultado = Number(var_new) + Number(var_current);
+
+                // Update the result disp
+                disp_result.innerHTML = resultado + " + ";
+
+                // Update the new value disp
+                disp_newValue.innerHTML = "0"
+
+                // Compute the sum and assing to both variable
+                var_current = resultado
+                var_new = "";
+
+            }
+
 
             break
 
         case MINUS:
+            // Set the current operator, needed for the "=" button to know what to do
+            operator = MINUS;
+
+            // If var_current is empty...
+            if (var_current === "") {
+
+                // Clear disp new_value
+                disp_newValue.innerHTML = "0";
+
+                // Update disp_result
+                disp_result.innerHTML = var_new + " - "
+
+                // Pass the value of var_new to var_current and clear var_new
+                var_current = var_new;
+                var_new = "";
+
+            }
+            // If there's already a value var_current
+            else {
+
+                // Compute the operation
+                resultado = Number(var_current) - Number(var_new);
+
+                // Update the result disp
+                disp_result.innerHTML = resultado + " - ";
+
+                // Update the new value disp
+                disp_newValue.innerHTML = "0"
+
+                // Compute the sum and assing to both variable
+                var_current = resultado
+                var_new = "";
+
+            }
+
             break
 
         case TIMES:
+            // Set the current operator, needed for the "=" button to know what to do
+            operator = TIMES;
+
+            // If var_current is empty...
+            if (var_current === "") {
+
+                // Clear disp new_value
+                disp_newValue.innerHTML = "0";
+
+                // Update disp_result
+                disp_result.innerHTML = var_new + " x "
+
+                // Pass the value of var_new to var_current and clear var_new
+                var_current = var_new;
+                var_new = "";
+
+            }
+            // If there's already a value var_current
+            else {
+
+                // Compute the operation
+                resultado = Number(var_current) * Number(var_new);
+
+                // Update the result disp
+                disp_result.innerHTML = resultado + " - ";
+
+                // Update the new value disp
+                disp_newValue.innerHTML = "0"
+
+                // Compute the sum and assing to both variable
+                var_current = resultado
+                var_new = "";
+
+            }
+
             break
 
         case DIVIDE:
+            // Set the current operator, needed for the "=" button to know what to do
+            operator = DIVIDE;
+
+            // If var_current is empty...
+            if (var_current === "") {
+
+                // Clear disp new_value
+                disp_newValue.innerHTML = "0";
+
+                // Update disp_result
+                disp_result.innerHTML = var_new + " / "
+
+                // Pass the value of var_new to var_current and clear var_new
+                var_current = var_new;
+                var_new = "";
+
+            }
+            // If there's already a value var_current
+            else {
+
+                // Compute the operation
+                resultado = Number(var_current) / Number(var_new);
+
+                // Update the result disp
+                disp_result.innerHTML = resultado + " / ";
+
+                // Update the new value disp
+                disp_newValue.innerHTML = "0"
+
+                // Compute the sum and assing to both variable
+                var_current = resultado
+                var_new = "";
+
+            }
             break
 
         case EQUAL:
-            // console.log(">> COMPUTING")
 
             switch (operator) {
 
                 case PLUS:
 
-                    // Only compute something if var new has value
-                    if (var_new != "") {
+                    // If var current is empty, then it's value is 0
+                    var_current = var_current === "" ? "0" : var_current
 
-                        // If var current is empty, then it's value is 0
-                        var_current = var_current === "" ? "0" : var_current
+                    // Compute the operation
+                    let resultado = Number(var_new) + Number(var_current);
 
-                        // Compute the operation
-                        let resultado = Number(var_new) + Number(var_current);
+                    // Update the result disp
+                    disp_result.innerHTML = var_current + " + " + var_new + " = ";
 
-                        // Update the result disp
-                        disp_result.innerHTML = var_current + "+" + var_new + " = ";
+                    // Update the new value disp
+                    disp_newValue.innerHTML = resultado;
 
-                        // Update the new value disp
-                        disp_newValue.innerHTML = resultado;
+                    // Compute the sum
+                    var_new = resultado;
 
-                        // Compute the sum
-                        var_new = resultado;
-
-                        // Update var_current
-                        var_current = "";
-
-                        operator = EQUAL;
-                    }
+                    // Update var_current and reset operator
+                    var_current = "";
+                    operator = EQUAL;
 
                     break;
 
                 case MINUS:
 
+                    // If var current is empty, then it's value is 0
+                    var_current = var_current === "" ? "0" : var_current
+
+                    // Compute the operation
+                    resultado = Number(var_current) - Number(var_new);
+
+                    // Update the result disp
+                    disp_result.innerHTML = var_current + " - " + var_new + " = ";
+
+                    // Update the new value disp
+                    disp_newValue.innerHTML = resultado;
+
+                    // Compute the sum
+                    var_new = resultado;
+
+                    // Update var_current and reset operator
+                    var_current = "";
+                    operator = EQUAL;
+
                     break;
 
                 case TIMES:
 
-                    break;
-                case DIVIDE:
+                    // If var current is empty, then it's value is 0
+                    var_current = var_current === "" ? "0" : var_current
+
+                    // Compute the operation
+                    resultado = Number(var_new) * Number(var_current);
+
+                    // Update the result disp
+                    disp_result.innerHTML = var_current + " x " + var_new + " = ";
+
+                    // Update the new value disp
+                    disp_newValue.innerHTML = resultado;
+
+                    // Compute the sum
+                    var_new = resultado;
+
+                    // Update var_current and reset operator
+                    var_current = "";
+                    operator = EQUAL;
 
                     break;
+
+                case DIVIDE:
+
+                    // If var current is empty, then it's value is 0
+                    var_current = var_current === "" ? "0" : var_current
+
+                    // Compute the operation
+                    resultado = Number(var_current) / Number(var_new);
+
+                    // Update the result disp
+                    disp_result.innerHTML = var_current + " / " + var_new + " = ";
+
+                    // Update the new value disp
+                    disp_newValue.innerHTML = resultado;
+
+                    // Compute the sum
+                    var_new = resultado;
+
+                    // Update var_current and reset operator
+                    var_current = "";
+                    operator = EQUAL;
+
+                    break;
+
                 default:
+                    console.error("Something is terribly wrong")
             }
 
             break
@@ -222,39 +400,47 @@ function operate() {
     }
 }
 
-var esta = true
 // Executed when the user clicks a number button
-function number() {
+function number(event) {
 
-    // Check if it's the decimal point
-    if (this.value === DOT) {
-        console.log("UEEEEEEE")
-        // Check if we already have a decimal point in the string
-        esta = disp_newValue.innerHTML.match(/\./) != null;
-        disp_newValue.innerHTML = esta ? disp_newValue.innerHTML : disp_newValue.innerHTML.concat("\.");
-    }
-    else {
+    console.log("\t\tTecla NUMERO " + event.key)
+  
+    // Check if it comes from a key
+    if (event.key != undefined) {
+        this.value = event.key;
+    } 
 
+    if (operator !== EQUAL) {
+        // Check if it's the decimal point
+        if (this.value === DOT) {
 
-        console.log("punto")
-
-        if (operator === EQUAL) {
-            var_new = this.value;
-            operator = "";
+            // Check if we already have a decimal point in the string
+            let esta = disp_newValue.innerHTML.match(/\./) != null;
+            disp_newValue.innerHTML = esta ? disp_newValue.innerHTML : disp_newValue.innerHTML.concat("\.");
         }
         else {
-            if (var_new == disp_newValue.innerHTML) {
-                // Append the new number to the var_new variable
-                var_new = Number(disp_newValue.innerHTML.concat(this.value));
-            }
-            else {
-                // If var new had a value
-                var_new = this.value;
-            }
+
+            // Check if disp new show a 0, if true return just the new value, else apende the new digit
+            disp_newValue.innerHTML = (disp_newValue.innerHTML === "0")
+                ? this.value
+                : disp_newValue.innerHTML.concat(this.value);
+        }
+    }
+    else {
+        // Check if it's the decimal point
+        if (this.value === DOT) {
+
+            // If the user starts with a decimal dot
+            disp_newValue.innerHTML = "0".concat("\.");
+        }
+        else {
+            disp_newValue.innerHTML = this.value;
         }
 
-        // Update the disp_newValue
-        disp_newValue.innerHTML = var_new
+        // Clear the previous operation
+        disp_result.innerHTML = "";
+        operator = "";
+
     }
 
 }
