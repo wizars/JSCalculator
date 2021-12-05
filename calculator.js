@@ -64,47 +64,57 @@ window.addEventListener("keydown", captureKey);
 
 // Executed when a key is press to capture the value and pass it as if the corresponding button was press
 function captureKey(evento) {
-    
+
     let tecla = evento.key;
     let code = evento.keyCode;
 
-    console.log("Tecla " + tecla + " pulsada, con codigo "+code)
-    
+    console.log("Tecla " + tecla + " pulsada, con codigo " + code)
 
-    if (tecla in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."]) {
-        console.log("\tTecla numero " +tecla)
-        
+
+    if (tecla in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]||code===110) {
+        console.log("\tTecla numero " + tecla)
+
         number(evento);
-        // return;
     }
-
-     if (code ===109) {
-        console.log("\tTecla operacion " +code)
+    else if (code === 106 || 107 || 109 || 111 || 13 || 27 || 8) {
+        // Codes corresponding to *, +, -, /, Enter, Esc(CLEAR), Return (Delete)
+        console.log("\tTecla operacion " + code)
         operate(evento)
-        // tecla === "+" ? PLUS : tecla === "-" ? MINUS : tecla === "*" ? TIMES : tecla === "/" ? DIVIDE : EQUAL
     }
 
 }
 
 // Executed when the user clicks a operation button
 function operate(event) {
-    
-    console.log("\t\tTecla OPERACION " + event.key)
-  // Check if it comes from a key
-  if (event.key != undefined) {
-    this.value =  
-         event.key === "+" ? PLUS : event.key === "-" ? MINUS : event.key === "*" ? TIMES : event.key === "/" ? DIVIDE : EQUAL
-
-} 
 
 
-    // Will contain the result
-    let resultado;
+    // Inicialize variable than identifies the operation requested
+    let valor;
+
+    // Check if it comes from a key
+    if (event.keyCode != undefined) {
+        valor =
+            event.keyCode ===
+                107 ? PLUS
+                : event.keyCode === 109 ? MINUS
+                    : event.keyCode === 106 ? TIMES
+                        : event.keyCode === 111 ? DIVIDE
+                            : event.keyCode === 13 ? EQUAL
+                                : event.keyCode === 27 ? CLEAR
+                                    : DELETE;
+
+        console.log("\t\tTecla OPERACION " + valor)
+    }
+    else {
+        valor = this.value;
+        console.log("\t\tBoton OPERACION " + valor)
+
+    }
 
     // Compute the new variable
     var_new = Number(disp_newValue.innerHTML)
 
-    switch (this.value) {
+    switch (valor) {
 
         case CLEAR:
 
@@ -114,7 +124,6 @@ function operate(event) {
             disp_result.innerHTML = "";
             disp_newValue.innerHTML = "0"
 
-            // Reset the variables
             var_current = "";
             var_new = ""
 
@@ -157,17 +166,15 @@ function operate(event) {
             // If there's already a value var_current
             else {
 
-                // Compute the operation
-                resultado = Number(var_new) + Number(var_current);
-
                 // Update the result disp
-                disp_result.innerHTML = resultado + " + ";
+                disp_newValue.innerHTML = Math.round((Number(var_new) + Number(var_current))*10000)/10000;
+
 
                 // Update the new value disp
                 disp_newValue.innerHTML = "0"
 
                 // Compute the sum and assing to both variable
-                var_current = resultado
+                var_current = Number(var_new) + Number(var_current);
                 var_new = "";
 
             }
@@ -196,17 +203,16 @@ function operate(event) {
             // If there's already a value var_current
             else {
 
-                // Compute the operation
-                resultado = Number(var_current) - Number(var_new);
 
                 // Update the result disp
-                disp_result.innerHTML = resultado + " - ";
+                disp_newValue.innerHTML =Math.round( (Number(var_current) - Number(var_new))*10000)/10000;
+
 
                 // Update the new value disp
                 disp_newValue.innerHTML = "0"
 
                 // Compute the sum and assing to both variable
-                var_current = resultado
+                var_current = Number(var_current) - Number(var_new);
                 var_new = "";
 
             }
@@ -234,17 +240,14 @@ function operate(event) {
             // If there's already a value var_current
             else {
 
-                // Compute the operation
-                resultado = Number(var_current) * Number(var_new);
-
                 // Update the result disp
-                disp_result.innerHTML = resultado + " - ";
+                disp_newValue.innerHTML =Math.round( (Number(var_new) * Number(var_current))*10000)/10000;
 
                 // Update the new value disp
                 disp_newValue.innerHTML = "0"
 
                 // Compute the sum and assing to both variable
-                var_current = resultado
+                var_current = Number(var_current) * Number(var_new)
                 var_new = "";
 
             }
@@ -252,6 +255,15 @@ function operate(event) {
             break
 
         case DIVIDE:
+
+            // Check zero division
+            if (var_new === 0) {
+                console.error("Division by zero");
+                alert("Division by zero")
+                operate({ keyCode: 27 })
+                break;
+            }
+
             // Set the current operator, needed for the "=" button to know what to do
             operator = DIVIDE;
 
@@ -272,17 +284,15 @@ function operate(event) {
             // If there's already a value var_current
             else {
 
-                // Compute the operation
-                resultado = Number(var_current) / Number(var_new);
-
                 // Update the result disp
-                disp_result.innerHTML = resultado + " / ";
+                disp_newValue.innerHTML =Math.round((Number(var_current) / Number(var_new))*10000)/10000;
+
 
                 // Update the new value disp
                 disp_newValue.innerHTML = "0"
 
                 // Compute the sum and assing to both variable
-                var_current = resultado
+                var_current = Number(var_current) / Number(var_new)
                 var_new = "";
 
             }
@@ -297,17 +307,14 @@ function operate(event) {
                     // If var current is empty, then it's value is 0
                     var_current = var_current === "" ? "0" : var_current
 
-                    // Compute the operation
-                    let resultado = Number(var_new) + Number(var_current);
-
                     // Update the result disp
                     disp_result.innerHTML = var_current + " + " + var_new + " = ";
 
                     // Update the new value disp
-                    disp_newValue.innerHTML = resultado;
+                    disp_newValue.innerHTML = Math.round((Number(var_new) + Number(var_current))*10000)/10000;
 
                     // Compute the sum
-                    var_new = resultado;
+                    var_new = Number(var_new) + Number(var_current);
 
                     // Update var_current and reset operator
                     var_current = "";
@@ -320,17 +327,14 @@ function operate(event) {
                     // If var current is empty, then it's value is 0
                     var_current = var_current === "" ? "0" : var_current
 
-                    // Compute the operation
-                    resultado = Number(var_current) - Number(var_new);
-
                     // Update the result disp
                     disp_result.innerHTML = var_current + " - " + var_new + " = ";
 
                     // Update the new value disp
-                    disp_newValue.innerHTML = resultado;
+                    disp_newValue.innerHTML =Math.round( (Number(var_current) - Number(var_new))*10000)/10000;
 
                     // Compute the sum
-                    var_new = resultado;
+                    var_new = Number(var_current) - Number(var_new);
 
                     // Update var_current and reset operator
                     var_current = "";
@@ -343,17 +347,14 @@ function operate(event) {
                     // If var current is empty, then it's value is 0
                     var_current = var_current === "" ? "0" : var_current
 
-                    // Compute the operation
-                    resultado = Number(var_new) * Number(var_current);
-
                     // Update the result disp
                     disp_result.innerHTML = var_current + " x " + var_new + " = ";
 
                     // Update the new value disp
-                    disp_newValue.innerHTML = resultado;
+                    disp_newValue.innerHTML =Math.round( (Number(var_new) * Number(var_current))*10000)/10000;
 
                     // Compute the sum
-                    var_new = resultado;
+                    var_new = Number(var_new) * Number(var_current);
 
                     // Update var_current and reset operator
                     var_current = "";
@@ -363,35 +364,39 @@ function operate(event) {
 
                 case DIVIDE:
 
+                    // Check zero division
+                    if (var_new === 0) {
+                        console.error("Division by zero");
+                        alert("Division by zero")
+                        operate({ keyCode: 27 })
+                        break;
+                    }
                     // If var current is empty, then it's value is 0
                     var_current = var_current === "" ? "0" : var_current
-
-                    // Compute the operation
-                    resultado = Number(var_current) / Number(var_new);
 
                     // Update the result disp
                     disp_result.innerHTML = var_current + " / " + var_new + " = ";
 
                     // Update the new value disp
-                    disp_newValue.innerHTML = resultado;
+                    disp_newValue.innerHTML =Math.round((Number(var_current) / Number(var_new))*10000)/10000;
 
                     // Compute the sum
-                    var_new = resultado;
+                    var_new = Number(var_current) / Number(var_new);
 
                     // Update var_current and reset operator
                     var_current = "";
                     operator = EQUAL;
+                    /* }
+                    else{
+                        alert("Kakitas")
+                    } */
 
                     break;
 
                 default:
-                    console.error("Something is terribly wrong")
             }
 
             break
-
-
-
 
 
         default:
@@ -404,11 +409,11 @@ function operate(event) {
 function number(event) {
 
     console.log("\t\tTecla NUMERO " + event.key)
-  
+
     // Check if it comes from a key
     if (event.key != undefined) {
         this.value = event.key;
-    } 
+    }
 
     if (operator !== EQUAL) {
         // Check if it's the decimal point

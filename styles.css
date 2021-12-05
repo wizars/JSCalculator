@@ -40,7 +40,7 @@ row-gap: 10px;
     /* font-size: 18px; */
     min-width: 100px;
     min-height: 28px;
-    background-color: steelblue;
+    /* background-color: steelblue; */
     text-align: right;
 }
 #new_value
