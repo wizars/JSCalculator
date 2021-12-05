@@ -124,7 +124,7 @@ function setOperation(op) {
     if (operation !== null) evaluate()
 
     // Set the operation tu perform in the global variable
-    operation = op==="x"?"*":op==="÷"?"/":op==="+"?"+":"-";
+    operation =convertSigns( op);
 
     // Set the first operand
     firstOperand = Number(dispCurrentOp.textContent);
@@ -135,6 +135,13 @@ function setOperation(op) {
     // Clear the current op display
     dispCurrentOp.textContent = "0";
 
+}
+// Convert the signs to the proper ones
+function convertSigns(op) {
+    if (op === "x") return "*";
+    if (op === "÷") return "/";
+    if (op === "+") return "+";
+    if (op === "-") return "-";
 }
 
 // Handles the key events
@@ -162,10 +169,10 @@ function handleKeyDown(evento) {
 function insertDot() {
 
     // Check if we already have a decimal point in the string
-    if(!dispCurrentOp.textContent.includes(".") )
-        dispCurrentOp.textContent=dispCurrentOp.textContent.concat("\.");
-    
-    
+    if (!dispCurrentOp.textContent.includes("."))
+        dispCurrentOp.textContent = dispCurrentOp.textContent.concat("\.");
+
+
 }
 
 // Rounds the result to 4 decimal places
@@ -174,11 +181,11 @@ function redondea(x) {
 }
 
 // Easter Egg
-function gatito(){
-    if (dispCurrentOp.textContent==="3.1415"){
-        let gato=document.getElementById("egg");
-        gato.hidden=false;
-        gato.addEventListener("click", ()=>gato.hidden=true)
+function gatito() {
+    if (dispCurrentOp.textContent === "3.1415") {
+        let gato = document.getElementById("egg");
+        gato.hidden = false;
+        gato.addEventListener("click", () => gato.hidden = true)
 
     }
 
