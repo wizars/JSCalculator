@@ -124,7 +124,7 @@ function setOperation(op) {
     if (operation !== null) evaluate()
 
     // Set the operation tu perform in the global variable
-    operation = op;
+    operation = op==="x"?"*":op==="÷"?"/":op==="+"?"+":"-";
 
     // Set the first operand
     firstOperand = Number(dispCurrentOp.textContent);
