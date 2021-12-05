@@ -130,7 +130,7 @@ function setOperation(op) {
     firstOperand = Number(dispCurrentOp.textContent);
 
     // change the last operation display
-    dispLastOp.textContent = firstOperand + " " + op + " ";
+    dispLastOp.textContent = firstOperand + " " + operation + " ";
 
     // Clear the current op display
     dispCurrentOp.textContent = "0";
