@@ -71,7 +71,7 @@ function captureKey(evento) {
     console.log("Tecla " + tecla + " pulsada, con codigo " + code)
 
 
-    if (tecla in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]||code===110) {
+    if (tecla in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"] || code === 110) {
         console.log("\tTecla numero " + tecla)
 
         number(evento);
@@ -167,14 +167,14 @@ function operate(event) {
             else {
 
                 // Update the result disp
-                disp_newValue.innerHTML = Math.round((Number(var_new) + Number(var_current))*10000)/10000;
+                disp_result.innerHTML =( Math.round((Number(var_new) + Number(var_current)) * 10000) / 10000)+" + ";
 
 
                 // Update the new value disp
                 disp_newValue.innerHTML = "0"
 
                 // Compute the sum and assing to both variable
-                var_current = Number(var_new) + Number(var_current);
+                var_current = Math.round((Number(var_new) + Number(var_current)) * 10000) / 10000;
                 var_new = "";
 
             }
@@ -205,14 +205,14 @@ function operate(event) {
 
 
                 // Update the result disp
-                disp_newValue.innerHTML =Math.round( (Number(var_current) - Number(var_new))*10000)/10000;
+                disp_result.innerHTML =( Math.round((Number(var_current) - Number(var_new)) * 10000) / 10000)+" - ";
 
 
                 // Update the new value disp
                 disp_newValue.innerHTML = "0"
 
                 // Compute the sum and assing to both variable
-                var_current = Number(var_current) - Number(var_new);
+                var_current = Math.round((Number(var_current) - Number(var_new)) * 10000) / 10000;
                 var_new = "";
 
             }
@@ -241,13 +241,13 @@ function operate(event) {
             else {
 
                 // Update the result disp
-                disp_newValue.innerHTML =Math.round( (Number(var_new) * Number(var_current))*10000)/10000;
+                disp_result.innerHTML = (Math.round((Number(var_new) * Number(var_current)) * 10000) / 10000)+" x ";
 
                 // Update the new value disp
                 disp_newValue.innerHTML = "0"
 
                 // Compute the sum and assing to both variable
-                var_current = Number(var_current) * Number(var_new)
+                var_current = Math.round((Number(var_new) * Number(var_current)) * 10000) / 10000;
                 var_new = "";
 
             }
@@ -285,14 +285,14 @@ function operate(event) {
             else {
 
                 // Update the result disp
-                disp_newValue.innerHTML =Math.round((Number(var_current) / Number(var_new))*10000)/10000;
+                disp_result.innerHTML =( Math.round((Number(var_current) / Number(var_new)) * 10000) / 10000)+" / ";
 
 
                 // Update the new value disp
                 disp_newValue.innerHTML = "0"
 
                 // Compute the sum and assing to both variable
-                var_current = Number(var_current) / Number(var_new)
+                var_current = Math.round((Number(var_current) / Number(var_new)) * 10000) / 10000;
                 var_new = "";
 
             }
@@ -311,10 +311,10 @@ function operate(event) {
                     disp_result.innerHTML = var_current + " + " + var_new + " = ";
 
                     // Update the new value disp
-                    disp_newValue.innerHTML = Math.round((Number(var_new) + Number(var_current))*10000)/10000;
+                    disp_newValue.innerHTML = Math.round((Number(var_new) + Number(var_current)) * 10000) / 10000;
 
                     // Compute the sum
-                    var_new = Number(var_new) + Number(var_current);
+                    var_new = Math.round((Number(var_new) + Number(var_current)) * 10000) / 10000;
 
                     // Update var_current and reset operator
                     var_current = "";
@@ -331,10 +331,10 @@ function operate(event) {
                     disp_result.innerHTML = var_current + " - " + var_new + " = ";
 
                     // Update the new value disp
-                    disp_newValue.innerHTML =Math.round( (Number(var_current) - Number(var_new))*10000)/10000;
+                    disp_newValue.innerHTML = Math.round((Number(var_current) - Number(var_new)) * 10000) / 10000;
 
                     // Compute the sum
-                    var_new = Number(var_current) - Number(var_new);
+                    var_new = Math.round((Number(var_current) - Number(var_new)) * 10000) / 10000;
 
                     // Update var_current and reset operator
                     var_current = "";
@@ -351,10 +351,10 @@ function operate(event) {
                     disp_result.innerHTML = var_current + " x " + var_new + " = ";
 
                     // Update the new value disp
-                    disp_newValue.innerHTML =Math.round( (Number(var_new) * Number(var_current))*10000)/10000;
+                    disp_newValue.innerHTML = Math.round((Number(var_new) * Number(var_current)) * 10000) / 10000;
 
                     // Compute the sum
-                    var_new = Number(var_new) * Number(var_current);
+                    var_new = Math.round((Number(var_new) * Number(var_current)) * 10000) / 10000;
 
                     // Update var_current and reset operator
                     var_current = "";
@@ -378,10 +378,10 @@ function operate(event) {
                     disp_result.innerHTML = var_current + " / " + var_new + " = ";
 
                     // Update the new value disp
-                    disp_newValue.innerHTML =Math.round((Number(var_current) / Number(var_new))*10000)/10000;
+                    disp_newValue.innerHTML = Math.round((Number(var_current) / Number(var_new)) * 10000) / 10000;
 
                     // Compute the sum
-                    var_new = Number(var_current) / Number(var_new);
+                    var_new = Math.round((Number(var_current) / Number(var_new)) * 10000) / 10000;
 
                     // Update var_current and reset operator
                     var_current = "";
@@ -409,43 +409,45 @@ function operate(event) {
 function number(event) {
 
     console.log("\t\tTecla NUMERO " + event.key)
+    if (disp_newValue.innerHTML.length < 10) {
 
-    // Check if it comes from a key
-    if (event.key != undefined) {
-        this.value = event.key;
-    }
 
-    if (operator !== EQUAL) {
-        // Check if it's the decimal point
-        if (this.value === DOT) {
+        // Check if it comes from a key
+        if (event.key != undefined) {
+            this.value = event.key;
+        }
 
-            // Check if we already have a decimal point in the string
-            let esta = disp_newValue.innerHTML.match(/\./) != null;
-            disp_newValue.innerHTML = esta ? disp_newValue.innerHTML : disp_newValue.innerHTML.concat("\.");
+        if (operator !== EQUAL) {
+            // Check if it's the decimal point
+            if (this.value === DOT) {
+
+                // Check if we already have a decimal point in the string
+                let esta = disp_newValue.innerHTML.match(/\./) != null;
+                disp_newValue.innerHTML = esta ? disp_newValue.innerHTML : disp_newValue.innerHTML.concat("\.");
+            }
+            else {
+
+                // Check if disp new show a 0, if true return just the new value, else apende the new digit
+                disp_newValue.innerHTML = (disp_newValue.innerHTML === "0")
+                    ? this.value
+                    : disp_newValue.innerHTML.concat(this.value);
+            }
         }
         else {
+            // Check if it's the decimal point
+            if (this.value === DOT) {
 
-            // Check if disp new show a 0, if true return just the new value, else apende the new digit
-            disp_newValue.innerHTML = (disp_newValue.innerHTML === "0")
-                ? this.value
-                : disp_newValue.innerHTML.concat(this.value);
+                // If the user starts with a decimal dot
+                disp_newValue.innerHTML = "0".concat("\.");
+            }
+            else {
+                disp_newValue.innerHTML = this.value;
+            }
+
+            // Clear the previous operation
+            disp_result.innerHTML = "";
+            operator = "";
+
         }
     }
-    else {
-        // Check if it's the decimal point
-        if (this.value === DOT) {
-
-            // If the user starts with a decimal dot
-            disp_newValue.innerHTML = "0".concat("\.");
-        }
-        else {
-            disp_newValue.innerHTML = this.value;
-        }
-
-        // Clear the previous operation
-        disp_result.innerHTML = "";
-        operator = "";
-
-    }
-
 }
