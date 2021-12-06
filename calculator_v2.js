@@ -142,6 +142,7 @@ function convertSigns(op) {
     if (op === "÷") return "/";
     if (op === "+") return "+";
     if (op === "-") return "-";
+    return op;
 }
 
 // Handles the key events
